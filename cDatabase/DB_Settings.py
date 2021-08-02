@@ -35,7 +35,7 @@ class DB_Settings(KV_Database):
 
     def get_prefix(self, guild):
         if guild == None: return self.db[0]['prefix']
-        if not self.find_guild(guild): return None
+        if not self.find_guild(guild): self.add_guild(guild)
         return self.db[guild.id]['prefix']
 
     def get_active_tag(self, guild):

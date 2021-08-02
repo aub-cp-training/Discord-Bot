@@ -60,8 +60,10 @@ async def execute(msg, args, client):
   try:
     user = await check_args(msg, args)
     if (user == None): return
+    user.client = client
 
     if user.register():
+        await user.update_roles()
         response = granted_msg("Registration")
         response.description = user.tag() + " is registered successfully"
         await msg.channel.send(embed = response)

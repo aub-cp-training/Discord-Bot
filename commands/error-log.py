@@ -22,7 +22,7 @@ def description(): return "Displays the Error Log."
 
 # ------------------ [ execute() ] ------------------ #
     # Checks if the author is an admin, returns "denied_msg" if true, otherwise "granted_msg"
-    # Creates a string "errorlogs" containing all error logs of "error_log.txt"
+    # Creates a string "errorlogs" containing all error logs of "error_log.log"
     # Checks if string is valid, if not, sends "denied_msg", otherwise sends "errorlogs"
     # Throws an exception if any error occurs, logs it with "elog" and sends "denied_msg"
 async def execute(msg, args, client):
@@ -33,7 +33,7 @@ async def execute(msg, args, client):
             await msg.reply(embed = denied_msg("Admin Command", desc))
             return None
 
-        fs = open('./logs/error_log.txt', 'r')
+        fs = open('./logs/error_log.log', 'r')
         errorlogs = ""
         for line in fs.readlines(): errorlogs += line + '\n'
     

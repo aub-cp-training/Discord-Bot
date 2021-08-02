@@ -97,7 +97,6 @@ class User:
         role = discord.utils.get(member.guild.roles, name = _role)
         await member.add_roles(role)
 
-        
     # ------------------ [ get_roles() ] ------------------ # 
         # return a list of all Discord roles of the user
     async def get_roles(self):

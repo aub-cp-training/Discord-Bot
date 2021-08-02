@@ -1,7 +1,7 @@
 from helper.cTime import MyDate
 
 # ------------------ [ elog() ] ------------------ #
-    # Logs the error message into the "error_log.txt" file
+    # Logs the error message into the "error_log.log" file
     # States what file, call and exception created the error log
 def elog(ex, stk):
     fs = open("./logs/error_log.log", "a")
@@ -13,7 +13,7 @@ def elog(ex, stk):
     fs.close()
 
 # ------------------ [ alog() ] ------------------ #
-    # Clears "activity_log.txt" and writes when the exception was called
+    # Clears "activity_log.log" and writes when the exception was called
 def alog(ex):
     fs = open("./logs/activity_log.log", "a")
     fs.write(MyDate().footer() + " " + str(ex) + '\n') 

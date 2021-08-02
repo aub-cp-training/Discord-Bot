@@ -22,7 +22,7 @@ def description(): return "Clears the Error Log."
 
 # ------------------ [ execute() ] ------------------ #
     # Checks if the author is an admin, returns "denied_msg" if true, otherwise "granted_msg"
-    # Clears the "error_log.txt" file
+    # Clears the "error_log.log" file
     # Sends a message confirming the log was cleared
     # Throws an exception if any error occurs, logs it with "elog" and sends "denied_msg"
 async def execute(msg, args, client):
@@ -33,7 +33,7 @@ async def execute(msg, args, client):
             await msg.reply(embed = denied_msg("Admin Command", desc))
             return None
 
-        fs = open('./logs/error_log.txt', 'w')
+        fs = open('./logs/error_log.log', 'w')
         fs.seek(0)
         fs.truncate()
         fs.close()
