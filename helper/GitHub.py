@@ -12,7 +12,7 @@ class GitHub():
     GitHub_Client = None
     GitHub_Repo = None
   
-    def __init__(self, username = 'mrm-36', repository = 'Algorithms', branch = 'main'):
+    def __init__(self, username = 'aub-cp-training', repository = 'Algorithms', branch = 'main'):
         self.username, self.repository, self.branch = username, repository, branch
         self.path += username + "/" + repository + "/" + branch + "/"
         self.zip_path += username + "/" + repository + "/raw/" + branch + "/"

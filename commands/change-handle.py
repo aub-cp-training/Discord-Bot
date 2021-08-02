@@ -60,8 +60,10 @@ async def execute(msg, args, client):
   try:
     user = await check_args(msg, args)
     if (user == None): return
+    user.client = client
 
     if user.change_handle(args[1]):
+        await user.update_roles()
         response = granted_msg("Change Handle")
         response.description = user.tag() + "'s handle has been successfully changed"
         await msg.channel.send(embed = response)

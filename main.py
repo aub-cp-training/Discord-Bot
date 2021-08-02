@@ -3,7 +3,7 @@
     # Khaled Chehabeddine
     # Miguel Merheb
 
-import os, json, inspect, discord, asyncio, importlib, keep_alive
+import os, json, inspect, discord, asyncio, importlib, keep_alive, sys
 from helper.cLog import elog
 from helper.cEmbed import denied_msg
 from helper.User import User
@@ -48,6 +48,7 @@ def init_available_algorithms():
     for algo in algo_all:
         if algo in algo_lst: continue
         Algorithm(str_algo= algo).delete()
+
     for algo in algo_lst: 
         x = Algorithm(str_algo= algo)
         if x.lang not in ['cpp', 'java', 'py']: continue
@@ -63,8 +64,10 @@ def init():
         init_available_commands()
         init_available_modules()
         init_available_algorithms()
+        return True
     except Exception as ex: 
         elog(ex, inspect.stack())
+        return False
 
 # ------------------ [ on_ready() ] ------------------ #
     # Runs after running main.py
@@ -72,7 +75,9 @@ def init():
     # Sets bot status to "playing [prefix]help"
 @client.event
 async def on_ready(): 
-    init()
+    if not init():
+        sys.exit('Check Error Log')
+
     await client.change_presence(activity = discord.Game(config['default_prefix'] + "help"))
     #await client.change_presence(status = discord.Status.offline)
     print("Bot online.")

@@ -27,6 +27,7 @@ class Algorithm():
             if self.lang in self.get_langs(): self.is_zip = db_algo.db[self._id]['lang_zip'][self.lang]
         elif len(str_algo) != 0:
             args = str_algo.split('.')
+            if len(args) == 1: args.append('-')
             if args[-1] == 'zip': args, self.is_zip = args[0].split("__"), True
             self.algo, self.lang = args[0].lower(), args[1].lower()
             if self.algo in db_algo.inv.keys(): self._id = db_algo.get_id_of_algo(self.algo)
