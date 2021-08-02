@@ -1,0 +1,3 @@
+discord.py==1.7.3
+CodeforcesApiPy==2.0.8
+PyGithub==1.55

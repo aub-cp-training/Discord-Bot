@@ -3,30 +3,30 @@ from cDatabase.DB_Users import DB_Users
 from helper.cTime import get_in_date_format
 
 from bs4 import BeautifulSoup
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+#from selenium import webdriver
+#from selenium.webdriver.common.keys import Keys
 
 database_users = DB_Users('db_users')
 cf_api = codeforces_api.CodeforcesApi()
 
 def get_cf_statistics(handle):
-    driver = webdriver.Firefox()
-    url = "https://a2oj.netlify.app/codeforces.html?handle=" + handle
-    driver.get(url)
-    time.sleep(8) 
-    html = driver.page_source
-    soup = BeautifulSoup(html, "html.parser")
+    #driver = webdriver.Firefox()
+    #url = "https://a2oj.netlify.app/codeforces.html?handle=" + handle
+    #driver.get(url)
+    #time.sleep(8) 
+    #html = driver.page_source
+    #soup = BeautifulSoup(html, "html.parser")
     
-    ids = ['tried', 'solved', 'averageAttempt', 'solvedWithOneSub', 'maxAttempt']
-    ids += ['maxAc', 'contestCount', 'best', 'worst', 'maxUp', 'maxDown']
+    #ids = ['tried', 'solved', 'averageAttempt', 'solvedWithOneSub', 'maxAttempt']
+    #ids += ['maxAc', 'contestCount', 'best', 'worst', 'maxUp', 'maxDown']
 
-    tags = soup.find_all(id= ids)
+    #tags = soup.find_all(id= ids)
 
     mp = {}
     
-    for i in range(len(ids)): mp[ids[i]] = tags[i].string
+    #for i in range(len(ids)): mp[ids[i]] = tags[i].string
 
-    driver.close()
+    #driver.close()
 
     return mp
 
