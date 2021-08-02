@@ -1,0 +1,15 @@
+{
+    "default_prefix": ">",
+    "Discord_Token": "ODA5NzYyMTgxMDI5NjkxMzky.YCZzzA.kqbCgSypSh_QERmf9Jjf1cElRRo",
+    "GitHub_Token": "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",
+    "general_channel": 818816445789110282,
+    "guild_id": 807204805890015254,
+	"icon_url": "https://i.pinimg.com/originals/d3/69/a1/d369a13f2e8d69884e5d7ec90f9c8337.jpg",
+    "split_path": "\\",
+    "version": "1.0.0.0",
+    "cmds_loc": "./commands",
+    "module_cmds_loc": "./module_commands",
+    "default_active_tag": "everyone",
+    "confirmation_key": "CONFIRM",
+    "temp_file": "code"
+}
