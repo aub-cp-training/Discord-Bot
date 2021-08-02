@@ -3,7 +3,7 @@
     # Khaled Chehabeddine
     # Miguel Merheb
 
-import os, json, inspect, discord, asyncio, importlib
+import os, json, inspect, discord, asyncio, importlib, keep_alive
 from helper.cLog import elog
 from helper.cEmbed import denied_msg
 from helper.User import User
@@ -161,4 +161,5 @@ async def my_background_task__Role_Management():
 # Initialize db_setting on_guild_join
 
 #client.loop.create_task(my_background_task__Role_Management())
+keep_alive.keep_alive()
 client.run(config['Discord_Token'])
