@@ -32,9 +32,14 @@ async def check_args(msg, args):
         await msg.reply(embed = denied_msg("Invalid Command Format", usage()))
         return False
 
-    lang = ('cpp' if len(args) == 1 else args[1])
+    isID = (args[0] in db_algo.keys())
 
-    if args[0] in db_algo.keys(): algo = Algorithm(_id= args[0], lang= lang)
+    if len(args) == 1:
+        av_langs = db_algo.get_langs(Algorithm(_id= args[0]) if isID else Algorithm(algo= args[0]))
+        lang = av_langs[0] if len(av_langs) == 1 else 'cpp'
+    else: lang = args[1]
+
+    if isID: algo = Algorithm(_id= args[0], lang= lang)
     else: algo = Algorithm(algo= args[0], lang= lang)
     
     if not algo.is_found():
