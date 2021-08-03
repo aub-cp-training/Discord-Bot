@@ -123,28 +123,39 @@ async def on_message(msg):
         elog(ex, inspect.stack()) 
         await msg.reply(embed = denied_msg())
 
+# fix on member join
+# implement on member leave (remove CodeX from DM)
 @client.event
 async def on_member_join(member):
-    channel = discord.DMChannel
-    await channel.send(member, "rules + ask for handle") 
-
-    def is_valid(response):
-        handle = response.content
-        return cf_api.is_valid_handle(handle) and not User(handle= handle).is_taken_handle()
-
+    return
     try:
-        msg = await client.wait_for('message', check= is_valid, timeout= 60.0)
-        user = User(id= msg.author.id, handle= msg.content, client= client)
+        prefix = db_settings.get_prefix(member.guild)
+        msg_author = User(id= member.id)
+        msg_txt = cMessage(msg_author, prefix).get_msg('greeting')
 
-        if user.is_taken_id(): user.change_handle(msg.content)
-        else: user.register()
+        channel = discord.DMChannel
+        await channel.send(member, embed= msg_txt) 
 
-        await user.update_roles()
-    except asyncio.TimeoutError:
-        await channel.send(member, 'Sorry, you took too long')
-        return
+        def is_valid(response):
+            handle = response.content
+            return cf_api.is_valid_handle(handle) and not User(handle= handle).is_taken_handle()
 
-    await channel.send(member, 'Hello {.author}!'.format(msg))
+        try:
+            msg = await client.wait_for('message', check= is_valid, timeout= 60.0)
+            user = User(id= msg.author.id, handle= msg.content, client= client)
+
+            if user.is_taken_id(): user.change_handle(msg.content)
+            else: user.register()
+
+            await user.update_roles()
+        except asyncio.TimeoutError:
+            await channel.send(member, 'Sorry, you took too long')
+            return
+
+        await channel.send(member, 'Hello ' + msg_author.tag())
+    except Exception as ex:
+        elog(ex, inspect.stack()) 
+        await msg.reply(embed = denied_msg())
 
 # ------------------ [ my_background_task__Role_Management() ] ------------------ #
     # Runs after the bot becomes online
