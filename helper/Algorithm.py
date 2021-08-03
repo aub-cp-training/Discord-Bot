@@ -76,9 +76,12 @@ class Algorithm():
         else:
             code = github_api.get_file(str(self))
             file_path = self.output_path + ".txt"
-            # adding extra "new-line" chars
-            with open(file_path, 'w') as f: 
-                for line in code.split('\n'): f.write(line)
+            # adding extra "new-line" chars in file in
+            # [
+            #   big-int.cpp, gcd-lcm.cpp, miller-rabin.cpp, mod-pow.cpp, sieve-divisors.cpp, 
+            #   sieve-primes.cpp, 
+            # ]
+            with open(file_path, 'w', newline='') as f: f.write(code)
         return file_path
 
     async def write_file(self, attts):
