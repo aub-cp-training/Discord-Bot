@@ -17,7 +17,7 @@ def is_admin_only(): return True
 
 # ------------------ [ usage() ] ------------------ #
     # Returns how the command is called ex. "[prefix][command]"
-def usage(): return file
+def usage(): return file + ' [prefix]'
 
 # ------------------ [ description() ] ------------------ #
     # Returns a short explanation of what the function does
