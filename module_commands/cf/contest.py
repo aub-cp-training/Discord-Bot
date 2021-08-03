@@ -63,21 +63,20 @@ async def execute(msg, args, client):
         contest = lst[0]
         lst = lst[1:]
 
-    
-
         response = granted_msg("Contest Rating Changes")
 
         ranks = handles = ratings  = ""
         for (r, h, o, n) in lst:
             ranks += "**" + str(r) + "**" + "\n"
             handles += str(h) + "\n"
-            ratings += str(o) + "--" +  str(n) + "\n"
+            pos = '+' if n - o > 0 else ''
+            ratings += f'{o} --> {n} ***({pos}{n - o})***\n'
 
         response.description = contest
 
         response.add_field(name = "Rank", value = ranks)
         response.add_field(name = "Handle", value = handles)
-        response.add_field(name = "Old-New Rating", value = ratings)
+        response.add_field(name = "Rating Change", value = ratings)
   
         await msg.channel.send(embed = response)
     except Exception as ex:

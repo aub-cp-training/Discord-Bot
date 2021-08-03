@@ -9,27 +9,6 @@ from bs4 import BeautifulSoup
 database_users = DB_Users('db_users')
 cf_api = codeforces_api.CodeforcesApi()
 
-def get_cf_statistics(handle):
-    #driver = webdriver.Firefox()
-    #url = "https://a2oj.netlify.app/codeforces.html?handle=" + handle
-    #driver.get(url)
-    #time.sleep(8) 
-    #html = driver.page_source
-    #soup = BeautifulSoup(html, "html.parser")
-    
-    #ids = ['tried', 'solved', 'averageAttempt', 'solvedWithOneSub', 'maxAttempt']
-    #ids += ['maxAc', 'contestCount', 'best', 'worst', 'maxUp', 'maxDown']
-
-    #tags = soup.find_all(id= ids)
-
-    mp = {}
-    
-    #for i in range(len(ids)): mp[ids[i]] = tags[i].string
-
-    #driver.close()
-
-    return mp
-
 # ------------------------------------ { CF_API } ------------------------------------ # 
 class CF_API():
     # ------------------ [ user_info() ] ------------------ # 
@@ -65,30 +44,29 @@ class CF_API():
     # ------------------ [ solved_problems() ] ------------------ # 
         # Checks if the problem's verdict was "OK" before counting it
         # Returns problems solved from "problemset", "gym", and "total" = "problemset" + "gym"
+        # Problems appearing on both div 1 and div 2 may get counted twice for div 2 users 
     def solved_problems(self, user):
-        d = {}
+        d = {'0': 0}
         solved = set()
         total = gym = 0
 
         for prob in self.user_status(user):
             if prob.verdict != "OK": continue
 
-            try: id = str(prob.problem.contest_id) + prob.problem.index
-            except: 
-                try: id = str(prob.problem.problemset_name) + prob.problem.index
-                except: continue
+            _id = str(prob.problem.contest_id) + str(prob.problem.index)
+            if _id in solved: continue
+            solved.add(_id)
 
-            if id in solved: continue
-            solved.add(id)
+            index = ''.join([i for i in prob.problem.index if i.isalpha()])
 
-            if prob.problem.rating == None:
-                gym += 1
-                continue
+            if index: 
+                index = index[0]
+                if d.get(index): d[index] += 1
+                else: d[index] = 1
+            else: d['0'] += 1
 
-            total += 1
-            index = prob.problem.index.strip('1234567890')
-            if d.get(index): d[index] += 1
-            else: d[index] = 1
+            if prob.problem.rating == None: gym += 1
+            else: total += 1
 
         return {'total': total + gym, 'problemset': total, 'gym': gym, 'problems': sorted(d.items())}
 

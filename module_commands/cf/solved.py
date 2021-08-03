@@ -36,8 +36,16 @@ async def valid_handle(msg, info, lst):
             icon_url = info.title_photo,
         )
         response.set_thumbnail(url = info.avatar)
+
+        prob = lst['problems']
+        while len(prob) > 21:
+            mn = prob.index(min(prob, key= lambda x : x[1]))
+            x = prob.pop(mn)[1]
+            mn = prob.index(min(prob, key= lambda x : x[1]))
+            prob[mn] = (prob[mn][0], prob[mn][1] + x)
+        prob = sorted(prob)
     
-        for (k, v) in lst['problems']:
+        for (k, v) in prob:
             response.add_field(name = k, value = v)
     
         response.add_field(name = "\u200b", value = '\u200b', inline = False)
@@ -75,7 +83,8 @@ async def execute(msg, args, client):
         try:
             info = cf_api.user_info(user)
             lst = cf_api.solved_problems(user)
-        except Exception:
+        except Exception as ex:
+            print(ex)
             await msg.reply(embed = denied_msg("Invalid Handle", ""))
             return
 
