@@ -1,0 +1,15 @@
+{
+    "default_prefix": "~",
+    "Discord_Token": "ODcxNjgzNzQ2ODIxMTk3ODU0.YQe4wA.iAJh7P6WCEo2qAGDoR-PKcHvRW8",
+    "GitHub_Token": "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",
+    "general_channel": 871707788789817398,
+    "guild_id": 871707788789817395,
+	"icon_url": "https://www.pngfind.com/pngs/m/654-6542003_roblox-logo-png-cool-discord-bot-logo-transparent.png",
+    "split_path": "\\",
+    "version": "1.0.0.0",
+    "cmds_loc": "./commands",
+    "module_cmds_loc": "./module_commands",
+    "default_active_tag": "everyone",
+    "confirmation_key": "CONFIRM",
+    "temp_file": "code"
+}
