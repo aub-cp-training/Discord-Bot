@@ -5,7 +5,7 @@
 
 import os, json, inspect, discord, asyncio, importlib, keep_alive, sys
 from helper.cLog import elog
-from helper.cEmbed import denied_msg
+from helper.cEmbed import denied_msg, greeting_msg
 from helper.User import User
 from helper.Algorithm import Algorithm
 from cDatabase.DB_Users import DB_Users
@@ -127,14 +127,14 @@ async def on_message(msg):
 # implement on member leave (remove CodeX from DM)
 @client.event
 async def on_member_join(member):
-    return
     try:
         prefix = db_settings.get_prefix(member.guild)
-        msg_author = User(id= member.id)
-        msg_txt = cMessage(msg_author, prefix).get_msg('greeting')
 
         channel = discord.DMChannel
-        await channel.send(member, embed= msg_txt) 
+        await channel.send(member, embed= greeting_msg(prefix)) 
+
+        await channel.send(member, "First of all, you're gonna need a CodeForces account. If you don't have one, you can register on https://codeforces.com/register !!")
+        await channel.send(member, "Please Enter Your CodeForces Handle: ")
 
         def is_valid(response):
             handle = response.content
@@ -149,13 +149,26 @@ async def on_member_join(member):
 
             await user.update_roles()
         except asyncio.TimeoutError:
-            await channel.send(member, 'Sorry, you took too long')
+            desc = "Use `" + prefix + "register [YOUR_HANDLE]` to register!"
+            await channel.send(member, embed = denied_msg("You Took Too Long To Answer", desc))
             return
 
-        await channel.send(member, 'Hello ' + msg_author.tag())
+        await channel.send(member, User(id= member.id).tag() + ", Welcome to The Team!!")
     except Exception as ex:
         elog(ex, inspect.stack()) 
-        await msg.reply(embed = denied_msg())
+        await channel.send(member, embed = denied_msg())
+
+@client.event
+async def on_member_remove(member):
+    try:
+        channel = discord.DMChannel
+
+        User(id= member.id).delete()
+
+        await channel.send(member, User(id= member.id).tag() + ", We're Sorry to See You Go!")
+    except Exception as ex:
+        elog(ex, inspect.stack()) 
+        await channel.send(member, embed = denied_msg())
 
 # ------------------ [ my_background_task__Role_Management() ] ------------------ #
     # Runs after the bot becomes online

@@ -3,6 +3,7 @@ from helper.cTime import MyDate
 
 config = json.load(open('config.json', 'r'))
 icon_url = config['icon_url']
+bot_name = "CodeX"
 
 # ------------------ [ granted_msg() ] ------------------ #
     # Creates a default embed for any valid commands
@@ -13,7 +14,7 @@ def granted_msg(_title, desc = ""):
         color = discord.Color.green(),
     )
     response.set_footer(
-        text = "CodeX • " + MyDate().footer(),
+        text = bot_name + " • " + MyDate().footer(),
         icon_url = icon_url
     )
     return response
@@ -30,7 +31,30 @@ def denied_msg(
     )
     response.description = desc
     response.set_footer(
-        text = "CodeX • " + MyDate().footer(),
+        text = bot_name + " • " + MyDate().footer(),
+        icon_url = icon_url
+    )
+    return response
+
+def greeting_msg(prefix):
+    desc = f"""
+My name is **{bot_name}**.
+
+I was developed by the CP Training Team to help you in your journey.
+
+New features will be added on the go, and members are more than welcome to help keeping me up to date.
+
+To see the currently available commands, type `{prefix}help`!
+
+***Good Luck in your journey!***
+    """
+    response = discord.Embed(
+        title = "Welcome to the AUB CP Training Team",
+        description = desc,
+        color = discord.Color.blue(),
+    )
+    response.set_footer(
+        text = bot_name + " • " + MyDate().footer(),
         icon_url = icon_url
     )
     return response
