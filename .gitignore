@@ -1,6 +1,1 @@
 __pycache__/
-*.log
-databases/*
-logs/*
-module_commands/algo/code.txt
-module_commands/algo/code.zip

@@ -13,7 +13,7 @@ cf_api = CF_API()
 
 # ------------------ [ is_admin_only() ] ------------------ #
     # Anybody can use this command
-def is_admin_only(): return False
+def is_admin_only(): return True
 
 # ------------------ [ usage() ] ------------------ #
     # Returns how the command is called ex. "[prefix][command]"
