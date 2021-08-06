@@ -2,7 +2,7 @@ import codeforces_api, requests, re, time
 from cDatabase.DB_Users import DB_Users
 from helper.cTime import get_in_date_format
 
-from bs4 import BeautifulSoup
+#from bs4 import BeautifulSoup
 #from selenium import webdriver
 #from selenium.webdriver.common.keys import Keys
 
