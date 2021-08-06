@@ -7,9 +7,7 @@ app = Flask('')
 def main():
     return "Your bot is alive!"
 
-def run():
-    app.run(host = "0.0.0.0", port = 8080)
-
-def keep_alive():
-    server = Thread(target = run)
-    server.start()
+if __name__ == '__main__':
+    app.run(debug=True)
+    client.loop.create_task(my_background_task__Role_Management(client))
+    client.run(config['Discord_Token'])
