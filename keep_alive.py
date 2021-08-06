@@ -1,5 +1,6 @@
 from threading import Thread
 from flask import Flask
+from main import client
 
 app = Flask('')
 
