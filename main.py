@@ -3,7 +3,7 @@
     # Khaled Chehabeddine
     # Miguel Merheb
 
-import os, json, inspect, discord, asyncio, importlib, keep_alive, sys
+import os, json, inspect, discord, asyncio, importlib, sys
 from helper.cLog import elog
 from helper.cEmbed import denied_msg, greeting_msg
 from helper.User import User
@@ -172,7 +172,3 @@ async def on_member_remove(member):
         await channel.send(member, embed = denied_msg())
 
 # Initialize db_setting on_guild_join
-
-client.loop.create_task(my_background_task__Role_Management(client))
-keep_alive.app.run(debug=True)
-client.run(config['Discord_Token'])
