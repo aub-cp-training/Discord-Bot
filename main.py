@@ -3,7 +3,7 @@
     # Khaled Chehabeddine
     # Miguel Merheb
 
-import os, json, inspect, discord, asyncio, importlib, sys, keep_alive
+import os, json, inspect, discord, asyncio, importlib, sys
 from helper.cLog import elog
 from helper.cEmbed import denied_msg, greeting_msg
 from helper.User import User
